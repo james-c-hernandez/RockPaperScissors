@@ -22,7 +22,7 @@ namespace RockPaperScissors
         Draw
     }
 
-    internal class GameManager
+    public class GameManager
     {
         private IPlayer _player1;
         private IPlayer _player2;
