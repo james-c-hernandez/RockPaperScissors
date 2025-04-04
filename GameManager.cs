@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -23,39 +24,26 @@ namespace RockPaperScissors
 
     internal class GameManager
     {
-        Random _rng = new Random();
+        private IPlayer _player1;
+        private IPlayer _player2;
+
+        public GameManager(IPlayer player1, IPlayer player2)
+        {
+            _player1 = player1;
+            _player2 = player2;
+        }
+
         public RoundResult PlayRound()
         {
+
             //Player1 (Human)
-            Choice p1;
-            do
-            {
-                Console.Write("Enter Choice: (R)ock (P)aper, or (S)cissors: ");
-                string input = Console.ReadLine().ToUpper();
-                if (input == "R")
-                {
-                    p1 = Choice.Rock;
-                    break;
-                }
-                else if (input == "P")
-                {
-                    p1 = Choice.Paper;
-                    break;
-                }
-                else if (input == "S")
-                {
-                    p1 = Choice.Scissors;
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid choice, try again!");
-                }
-            } while (true);
+            Choice p1 = _player1.GetChoice();
 
             // Player 2 (Computer)
-            Choice p2 = (Choice)_rng.Next(0, 3);
-            Console.WriteLine($"Player 2 picked {p2.ToString()}");
+            Choice p2 = _player2.GetChoice();
+
+            Console.WriteLine($"Player 1 picks {p1.ToString()} and Player 2 picks {p2.ToString()}");
+
 
             if (p1 == p2)
             {
